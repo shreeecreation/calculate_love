@@ -1,8 +1,11 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:love_calcuator/Homepage/view/homepage_screen.dart';
 
 main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const DefaultApp());
 }
 
@@ -11,16 +14,29 @@ class DefaultApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: "Lover Calculator",
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const Color.fromARGB(255, 255, 17, 0),
-          secondary: Colors.green,
+    return GestureDetector(
+      onTap: () {
+        SystemChannels.textInput.invokeMethod('TextInput.hide');
+      },
+      child: GetMaterialApp(
+        title: "Lover Calculator",
+        theme: ThemeData(
+          fontFamily: "charm",
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: const Color.fromARGB(255, 255, 17, 0),
+            secondary: Colors.green,
+          ),
+          textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.black)),
         ),
-        textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.black)),
+        home: AnimatedSplashScreen(
+          splash: "assets/images/splash.gif",
+          splashIconSize: 400,
+          duration: 3500,
+          nextScreen: HomePage(),
+          curve: Curves.linearToEaseOut,
+          splashTransition: SplashTransition.fadeTransition,
+        ),
       ),
-      home: const HomePage(),
     );
   }
 }
