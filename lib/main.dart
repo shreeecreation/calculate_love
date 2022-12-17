@@ -1,3 +1,4 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,14 @@ class DefaultApp extends StatelessWidget {
           ),
           textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.black)),
         ),
-        home: HomePage(),
+        home: AnimatedSplashScreen(
+          splash: "assets/images/splash.gif",
+          splashIconSize: 400,
+          duration: 3500,
+          nextScreen: HomePage(),
+          curve: Curves.linearToEaseOut,
+          splashTransition: SplashTransition.fadeTransition,
+        ),
       ),
     );
   }

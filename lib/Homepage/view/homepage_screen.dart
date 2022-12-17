@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:get/get.dart';
 import 'package:love_calcuator/Homepage/controller/namecontroller.dart';
+import 'package:love_calcuator/Homepage/view/expansiontile.dart';
 import 'package:love_calcuator/Homepage/view/resultpage_screen.dart';
 
 class HomePage extends StatelessWidget {
@@ -34,10 +35,11 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height / 1.5,
+                // height: MediaQuery.of(context).size.height / 1.5,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const SizedBox(height: 40),
                     Align(
                       alignment: Alignment.centerRight,
                       child: Center(
@@ -121,9 +123,12 @@ class HomePage extends StatelessWidget {
                                                 currentFocus.unfocus();
                                               }
                                               await Future.delayed(const Duration(milliseconds: 1000));
+
                                               var result = NameController.controlName(yourName.text, partnerName.text);
+                                              yourName.text = "";
+                                              partnerName.text = "";
                                               Get.to(() => ResultPage(result: result),
-                                                  transition: Transition.fade, duration: const Duration(milliseconds: 800));
+                                                  transition: Transition.downToUp, duration: const Duration(milliseconds: 500));
                                             },
                                             height: 70,
                                             width: 200,
@@ -144,10 +149,8 @@ class HomePage extends StatelessWidget {
                               ))),
                     ),
                     const SizedBox(height: 20),
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width - 20,
-                        height: 40,
-                        child: ElevatedButton(onPressed: () {}, child: const Text("Details")))
+                    const SizedBox(height: 20),
+                    const ExpansionDetails(),
                   ],
                 ),
               )
